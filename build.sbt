@@ -18,6 +18,8 @@ libraryDependencies += "org.scalamock" %% "scalamock-scalatest-support" % "3.1.2
 
 libraryDependencies += "org.zeromq" % "jeromq" % "0.3.4"
 
+libraryDependencies += "org.mongodb" %% "casbah" % "2.7.3"
+
 instrumentSettings
 
 org.scalastyle.sbt.ScalastylePlugin.Settings
@@ -40,7 +42,7 @@ javaOptions in run += "-XX:+PrintGCApplicationConcurrentTime"
 
 javaOptions in run += "-XX:+PrintGCApplicationStoppedTime"
 
-javaOptions in run += "-Xloggc:../logs/JVM"
+javaOptions in run += "-Xloggc:JVM.log"
 
-baseDirectory in run := file("bin/")
+baseDirectory in run := file(".")
 

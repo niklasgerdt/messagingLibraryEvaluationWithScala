@@ -17,3 +17,6 @@ project/plugins/project/
 .worksheet
 project/project/
 project/target/
+.classpath
+.idea/
+.project
