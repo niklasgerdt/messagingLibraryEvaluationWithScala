@@ -9,8 +9,8 @@ import grizzled.slf4j.Logging
 
 object JeroMqSimulation extends App with Logging {
   info("Runnnign simulators with " + args(0) + " and " + args(1))
-  val EVENTLEN = args(0).toInt
-  val PAUSELEN = args(1).toLong
+  val EVENTLEN = args(0)
+  val PAUSELEN = args(1)
 
   val storer = AsyncBufferingMongoDbEventRepo.storer("sentEvents")
   val pauser = Pauser.pauseFunction(PAUSELEN)
@@ -23,4 +23,9 @@ object JeroMqSimulation extends App with Logging {
     new Simulator(Event.supplier(4, EVENTLEN, kill), new JeroMqPublisher("tcp://127.0.0.1:5004"), pauser, storer, kill))
     .par
     .foreach(_.simulate())
+
+  //todo: GLOBAL
+  implicit def stringToLong(s: String): Long = augmentString(s).toLong
+  //todo: GLOBAL
+  implicit def stringToInt(s: String): Int = augmentString(s).toInt
 }
