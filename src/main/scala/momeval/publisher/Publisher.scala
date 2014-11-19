@@ -10,11 +10,12 @@ trait Publisher {
   def tear() = {}
 }
 
-class JeroMqPublisher (addr: String) extends Publisher {
+class JeroMqPublisher(addr: String) extends Publisher {
   import org.zeromq.ZMQ
 
   val ctx = ZMQ.context(1)
   val socket = ctx.socket(ZMQ.PUB)
+  socket.bind(addr)
 
   override def init() = {
     socket.bind(addr)

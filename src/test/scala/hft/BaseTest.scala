@@ -1,4 +1,4 @@
-package eu.route20.hft.test
+package hft
 
 import org.scalatest._
 import org.scalamock.scalatest.MockFactory

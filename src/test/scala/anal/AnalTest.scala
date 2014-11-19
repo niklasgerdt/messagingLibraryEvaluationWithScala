@@ -1,7 +1,8 @@
 package anal
 
-import eu.route20.hft.test.BaseTest
-import r20.anal.{Util, Stamp}
+import hft.BaseTest
+import analysis.Util
+import analysis.Stamp
 
 class RouteInfoTest extends BaseTest {
 
@@ -13,7 +14,6 @@ class RouteInfoTest extends BaseTest {
     assert(r.id == 1000000)
   }
 }
-
 
 class StampTest extends BaseTest {
 

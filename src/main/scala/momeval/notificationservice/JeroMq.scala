@@ -1,9 +1,10 @@
-package pubsub.jeromq
+package momeval.notificationservice
 
 import org.zeromq.ZMQ
 import scala.annotation.tailrec
+import grizzled.slf4j.Logging
 
-object JeroMq {
+object JeroMqNotificationService extends App with Logging {
   val ctx = ZMQ.context(1)
   val pub = ctx.socket(ZMQ.PUB)
   val sub = ctx.socket(ZMQ.SUB)
@@ -12,7 +13,6 @@ object JeroMq {
     override def run(): Unit = {
       println("term sig received");
       kill = -1
-      wait(1);
     }
   })
 
@@ -24,12 +24,12 @@ object JeroMq {
   //  pub.bind("tcp://168.1.1.2:6001")
   //  println("JeroMQ ctx up");
 
-  sub.connect("tcp://localhost:5001")
-  sub.connect("tcp://localhost:5002")
-  sub.connect("tcp://localhost:5003")
-  sub.connect("tcp://localhost:5004")
+  sub.connect("tcp://127.0.0.1:5001")
+  sub.connect("tcp://127.0.0.1:5002")
+  sub.connect("tcp://127.0.0.1:5003")
+  sub.connect("tcp://127.0.0.1:5004")
   sub.subscribe("".getBytes)
-  pub.bind("tcp://*:6001")
+  pub.bind("tcp://127.0.0.1:6001")
   println("JeroMQ ctx up");
 
   Runtime.getRuntime().addShutdownHook(hook);
@@ -42,10 +42,8 @@ object JeroMq {
 
   @tailrec final def recSend(): Unit = {
     val msg = sub.recvStr()
-    if (!sub.hasReceiveMore()) {
-      println(msg)
-      pub.send(msg)
-    }
+//    info("sending msg " + msg)
+    pub.send(msg)
     if (kill == 0)
       recSend()
   }
