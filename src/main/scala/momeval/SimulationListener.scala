@@ -8,7 +8,7 @@ import momeval.subscriber.JeroMqSubscriber
 object SimulationListenerApp extends App with Logging {
   info("Runnnign simulator listeners")
 
-  val updater = AsyncBufferingMongoDbEventRepo.updater()
+  val updater = AsyncBufferingMongoDbEventRepo.storer("routedEvents")
 
   object O extends Subscriber {
     override def supplyEvent() = Some(Event(0, 0, 0, 0, 0, ""))
