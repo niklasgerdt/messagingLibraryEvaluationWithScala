@@ -10,10 +10,6 @@ object SimulationListenerApp extends App with Logging {
 
   val updater = AsyncBufferingMongoDbEventRepo.storer("routedEvents")
 
-  object O extends Subscriber {
-    override def supplyEvent() = Some(Event(0, 0, 0, 0, 0, ""))
-  }
-
   List(
     new SimulationListener(1, updater, new JeroMqSubscriber("tcp://127.0.0.1:6001")),
     new SimulationListener(2, updater, new JeroMqSubscriber("tcp://127.0.0.1:6001")),

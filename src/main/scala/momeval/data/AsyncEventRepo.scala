@@ -6,6 +6,7 @@ import com.mongodb.casbah.Imports.MongoCollection
 import com.mongodb.casbah.commons.MongoDBObject
 import momeval.Event
 import grizzled.slf4j.Logging
+import momeval.service.Spawner
 
 trait AsyncEventRepo {
   this: DataBase =>
@@ -25,9 +26,9 @@ object AsyncBufferingMongoDbEventRepo extends AsyncEventRepo with MongoDB with L
     val col = initNewCollection(store)
     var events: List[Event] = List.empty
 
-    def flushInsert(es: List[Event]): Unit = {
-      new Thread(new Runnable() {
-        override def run() {
+    def flushInsert(es: List[Event]): () => Unit = {
+      () =>
+        {
           val bulk = col.initializeOrderedBulkOperation
           es.foreach(e => {
             val mo = map(e)
@@ -36,13 +37,13 @@ object AsyncBufferingMongoDbEventRepo extends AsyncEventRepo with MongoDB with L
           val res = bulk.execute()
           info("Inserted: " + res.getInsertedCount)
         }
-      }).start()
     }
 
     (e: Event) =>
       {
         events = events :+ e
         if (events.size == QSIZE) {
+          Spawner.spawn(flushInsert(events.toList))
           flushInsert(events.toList)
           events = List.empty
         }
