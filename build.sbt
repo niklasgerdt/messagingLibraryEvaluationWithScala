@@ -28,9 +28,9 @@ de.johoop.cpd4sbt.CopyPasteDetector.cpdSettings
 
 fork in run := true
 
-javaOptions in run += "-Xmx3G"
+javaOptions in run += "-Xmx2G"
 
-javaOptions in run += "-Xms3G"
+javaOptions in run += "-Xms2G"
 
 javaOptions in run += "-XX:+UseG1GC"
 

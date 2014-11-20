@@ -9,6 +9,17 @@ trait Publisher {
 
   def tear() = {}
 }
+//----------------------------------------------------------------------------------------------------------------------
+
+object DummyPub extends Publisher
+object PublisherFactory {
+  def stringToPublisher(s: String, address: String): Publisher =
+    s match {
+      case "jero" => new JeroMqPublisher(address)
+      case _ => DummyPub
+    }
+}
+//---------------------------------------------------------------------------------------------------------------------
 
 class JeroMqPublisher(addr: String) extends Publisher {
   import org.zeromq.ZMQ
