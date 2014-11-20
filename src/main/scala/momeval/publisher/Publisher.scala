@@ -1,6 +1,6 @@
 package momeval.publisher
 
-import momeval.Event
+import momeval.simulation.Event
 
 trait Publisher {
   def init() = {}

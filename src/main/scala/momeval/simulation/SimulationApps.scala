@@ -1,11 +1,11 @@
-package momeval
+package momeval.simulation
 
 import momeval.data.AsyncBufferingMongoDbEventRepo
-import momeval.publisher.Publisher
 import momeval.service.Pauser
 import momeval.service.Kill
 import momeval.publisher.JeroMqPublisher
 import grizzled.slf4j.Logging
+import momeval.implicits.Implicits._
 
 object JeroMqSimulation extends App with Logging {
   info("Runnnign simulators with " + args(0) + " and " + args(1))
@@ -25,7 +25,7 @@ object JeroMqSimulation extends App with Logging {
     .foreach(_.simulate())
 
   //todo: GLOBAL
-  implicit def stringToLong(s: String): Long = augmentString(s).toLong
+//  implicit def stringToLong(s: String): Long = augmentString(s).toLong
   //todo: GLOBAL
-  implicit def stringToInt(s: String): Int = augmentString(s).toInt
+//  implicit def stringToInt(s: String): Int = augmentString(s).toInt
 }

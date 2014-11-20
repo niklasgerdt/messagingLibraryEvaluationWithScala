@@ -1,4 +1,4 @@
-package momeval
+package momeval.simulation
 
 import grizzled.slf4j.Logging
 import momeval.data.AsyncBufferingMongoDbEventRepo

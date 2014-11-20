@@ -1,4 +1,6 @@
-package momeval
+package momeval.simulation
+
+import momeval.implicits.Implicits._
 
 case class Event(id: Long, src: Int, des: Int, created: Long, routed: Long, content: String)
 
@@ -33,8 +35,4 @@ object Event {
     else
       None
   }
-
-  implicit def stringToLong(s: String): Long = augmentString(s).toLong
-
-  implicit def stringToInt(s: String): Int = augmentString(s).toInt
 }

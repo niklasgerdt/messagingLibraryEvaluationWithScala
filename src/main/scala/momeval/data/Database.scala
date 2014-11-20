@@ -1,6 +1,6 @@
 package momeval.data
 
-import momeval.Event
+import momeval.simulation.Event
 
 trait DataBase
 

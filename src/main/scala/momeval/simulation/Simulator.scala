@@ -1,6 +1,5 @@
-package momeval
+package momeval.simulation
 
-import momeval.service.{ Kill, Pauser }
 import momeval.publisher.Publisher
 import grizzled.slf4j.Logging
 

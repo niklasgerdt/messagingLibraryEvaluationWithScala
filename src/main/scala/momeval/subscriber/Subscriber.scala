@@ -1,6 +1,6 @@
 package momeval.subscriber
 
-import momeval.Event
+import momeval.simulation.Event
 
 trait Subscriber {
   def init() = {}

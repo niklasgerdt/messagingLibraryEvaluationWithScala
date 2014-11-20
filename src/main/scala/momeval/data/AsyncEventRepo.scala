@@ -4,7 +4,7 @@ import com.mongodb.DBObject
 import com.mongodb.casbah.Imports.MongoClient
 import com.mongodb.casbah.Imports.MongoCollection
 import com.mongodb.casbah.commons.MongoDBObject
-import momeval.Event
+import momeval.simulation.Event
 import grizzled.slf4j.Logging
 import momeval.service.Spawner
 
