@@ -15,6 +15,4 @@ trait MongoDB extends DataBase {
       db(colName).drop
     db(colName)
   }
-  
-  
 }
