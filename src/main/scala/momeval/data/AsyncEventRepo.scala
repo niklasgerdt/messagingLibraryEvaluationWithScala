@@ -6,7 +6,8 @@ import com.mongodb.casbah.Imports.MongoCollection
 import com.mongodb.casbah.commons.MongoDBObject
 import momeval.simulation.Event
 import grizzled.slf4j.Logging
-import momeval.service.Spawner
+import momeval.service.Spawn
+import momeval.app.Config
 
 trait AsyncEventRepo {
   this: DataBase =>
@@ -20,9 +21,8 @@ object AsyncBufferingMongoDbEventRepo extends AsyncEventRepo with MongoDB with L
   import com.mongodb.casbah.commons.MongoDBObject
   import com.mongodb.DBObject
 
-  val QSIZE = 100000
-
   override def storer(store: String): Event => Unit = {
+    val QSIZE = Config.QSIZE
     val col = initNewCollection(store)
     var events: List[Event] = List.empty
 
@@ -43,7 +43,7 @@ object AsyncBufferingMongoDbEventRepo extends AsyncEventRepo with MongoDB with L
       {
         events = events :+ e
         if (events.size == QSIZE) {
-          Spawner.spawn(flushInsert(events.toList))
+          Spawn.spawn(flushInsert(events.toList))
           flushInsert(events.toList)
           events = List.empty
         }

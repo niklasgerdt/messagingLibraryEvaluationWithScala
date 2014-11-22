@@ -3,7 +3,7 @@ package momeval.notificationservice
 import org.zeromq.ZMQ
 import scala.annotation.tailrec
 import grizzled.slf4j.Logging
-import momeval.service.Spawner
+import momeval.service.Spawn
 
 object JeroMqNotificationService extends App with Logging {
   val ctx = ZMQ.context(1)
@@ -49,7 +49,7 @@ object JeroMqNotificationService extends App with Logging {
       println("term sig received")
       kill = -1
     }
-    val thread = Spawner.spawnFuture(hook)
+    val thread = Spawn.spawnFuture(hook)
     Runtime.getRuntime().addShutdownHook(thread);
   }
 }
