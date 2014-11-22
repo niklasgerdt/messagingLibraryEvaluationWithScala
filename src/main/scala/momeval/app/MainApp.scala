@@ -1,8 +1,10 @@
 package momeval.app
 
+import grizzled.slf4j.Logging
 import momeval.service.Spawn
 
-object JeroMQApp extends App {
+object JeroMQApp extends App with Logging {
+  info("Running JeroMQ simulation")
   assert(args.length == 2)
   val sut = "jero"
   val eventlen = args(0)
@@ -13,5 +15,6 @@ object JeroMQApp extends App {
 }
 
 object Config {
-  val QSIZE = 100000
+  // Limit for bulk operations (http://docs.mongodb.org/manual/core/bulk-write-operations/)
+  val QSIZE = 10000
 }

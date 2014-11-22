@@ -13,7 +13,8 @@ class EventListener(id: Int, update: Event => Unit, sub: Subscriber) extends Log
   }
 
   private def updateEvent(e: Event) {
-    val ec = Event.copyWithDestination(e, id)
-    update(ec)
+    val ev = Event.copyWithDestination(e, id)
+//    info("src: " + ev.src + " dst: " + ev.des + " id:" + ev.id)
+    update(ev)
   }
 }

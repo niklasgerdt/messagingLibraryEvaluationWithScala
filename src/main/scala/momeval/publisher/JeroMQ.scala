@@ -4,7 +4,6 @@ import org.zeromq.ZMQ
 import momeval.simulation.Event
 
 class JeroMqPublisher(addr: String) extends Publisher {
-
   val ctx = ZMQ.context(1)
   val socket = ctx.socket(ZMQ.PUB)
   socket.bind(addr)

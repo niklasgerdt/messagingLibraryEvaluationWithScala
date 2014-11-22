@@ -1,18 +1,20 @@
 package momeval.data
 
-import momeval.simulation.Event
-
 trait DataBase
 
 trait MongoDB extends DataBase {
+
   import com.mongodb.casbah.Imports._
 
   val mongoClient = MongoClient("localhost", 27017)
+  mongoClient.dropDatabase("eventdb")
   val db = mongoClient("eventdb")
+  val sentEvents = db("sentEvents")
+  val routedEvents = db("routedEvents")
 
-  def initNewCollection(colName: String): MongoCollection = {
-    if (db.collectionExists(colName))
-      db(colName).drop
-    db(colName)
-  }
+  def sentEventCollection() = sentEvents
+
+  def routedEVentCollection() = routedEvents
+
+  def newCollection(c: String) = db(c)
 }
