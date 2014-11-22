@@ -12,10 +12,10 @@ object EventListenerApp extends App with Logging {
   val subscriber = args(0)
 
   List(
-    new EventListener(1, updater, SubscriberFactory.stringToSubscriber(subscriber, "tcp://127.0.0.1:6001")),
-    new EventListener(2, updater, SubscriberFactory.stringToSubscriber(subscriber, "tcp://127.0.0.1:6001")),
-    new EventListener(3, updater, SubscriberFactory.stringToSubscriber(subscriber, "tcp://127.0.0.1:6001")),
-    new EventListener(4, updater, SubscriberFactory.stringToSubscriber(subscriber, "tcp://127.0.0.1:6001")))
+    new EventListener(1, updater, SubscriberFactory.stringToSubscriber(subscriber, "tcp://168.1.1.1:6001")),
+    new EventListener(2, updater, SubscriberFactory.stringToSubscriber(subscriber, "tcp://168.1.1.1:6001")),
+    new EventListener(3, updater, SubscriberFactory.stringToSubscriber(subscriber, "tcp://168.1.1.1:6001")),
+    new EventListener(4, updater, SubscriberFactory.stringToSubscriber(subscriber, "tcp://168.1.1.1:6001")))
     .par
     .foreach(s => s.listen)
 }

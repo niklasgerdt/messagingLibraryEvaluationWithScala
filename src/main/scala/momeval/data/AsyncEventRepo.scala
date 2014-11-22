@@ -20,7 +20,7 @@ object AsyncBufferingMongoDbEventRepo extends AsyncEventRepo with MongoDB with L
   import com.mongodb.casbah.commons.MongoDBObject
   import com.mongodb.DBObject
 
-  val QSIZE = 10000
+  val QSIZE = 1000000
 
   override def storer(store: String): Event => Unit = {
     val col = initNewCollection(store)

@@ -13,12 +13,12 @@ object JeroMqNotificationService extends App with Logging {
 
   addShutdownHook()
 
-    sub.connect("tcp://168.1.1.1:5001")
-    sub.connect("tcp://168.1.1.1:5002")
-    sub.connect("tcp://168.1.1.1:5003")
-    sub.connect("tcp://168.1.1.1:5004")
+    sub.connect("tcp://168.1.1.2:5001")
+    sub.connect("tcp://168.1.1.2:5002")
+    sub.connect("tcp://168.1.1.2:5003")
+    sub.connect("tcp://168.1.1.2:5004")
     sub.subscribe("".getBytes)
-    pub.bind("tcp://168.1.1.2:6001")
+    pub.bind("tcp://168.1.1.1:6001")
 
  // sub.connect("tcp://127.0.0.1:5001")
   //sub.connect("tcp://127.0.0.1:5002")

@@ -9,16 +9,16 @@ import momeval.simulation.Event
 import momeval.simulation.Simulator
 
 object SimulationApp extends App with Logging {
-  info("Runnnign simulators with " + args(0) + " and " + args(1) + args(3))
+  info("Running simulators with " + args(0) + " and " + args(1) + args(2))
   assert(args.length == 3)
   val eventlen = args(0)
   val pauselen = args(1)
   val publisher = args(2)
 
-  val pub1 = PublisherFactory.stringToPublisher(publisher, "tcp://127.0.0.1:5001")
-  val pub2 = PublisherFactory.stringToPublisher(publisher, "tcp://127.0.0.1:5002")
-  val pub3 = PublisherFactory.stringToPublisher(publisher, "tcp://127.0.0.1:5003")
-  val pub4 = PublisherFactory.stringToPublisher(publisher, "tcp://127.0.0.1:5004")
+  val pub1 = PublisherFactory.stringToPublisher(publisher, "tcp://168.1.1.2:5001")
+  val pub2 = PublisherFactory.stringToPublisher(publisher, "tcp://168.1.1.2:5002")
+  val pub3 = PublisherFactory.stringToPublisher(publisher, "tcp://168.1.1.2:5003")
+  val pub4 = PublisherFactory.stringToPublisher(publisher, "tcp://168.1.1.2:5004")
   val storer = AsyncBufferingMongoDbEventRepo.storer("sentEvents")
   val pauser = Pauser.pauseFunction(pauselen)
   val kill = Kill.asSignalListener()
