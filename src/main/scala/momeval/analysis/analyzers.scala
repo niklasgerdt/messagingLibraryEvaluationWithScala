@@ -1,4 +1,4 @@
-package analysis
+package momeval.analysis
 
 import java.io.File
 import grizzled.slf4j.Logging

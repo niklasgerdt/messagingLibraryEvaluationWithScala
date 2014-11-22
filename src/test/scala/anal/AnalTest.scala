@@ -1,8 +1,7 @@
 package anal
 
 import hft.BaseTest
-import analysis.Util
-import analysis.Stamp
+import momeval.analysis._
 
 class RouteInfoTest extends BaseTest {
 

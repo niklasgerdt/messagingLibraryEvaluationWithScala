@@ -1,8 +1,9 @@
-package momeval.simulation
+package momeval.app
 
 import grizzled.slf4j.Logging
 import momeval.data.AsyncBufferingMongoDbEventRepo
 import momeval.subscriber.SubscriberFactory
+import momeval.simulation.EventListener
 
 object EventListenerApp extends App with Logging {
   info("Runnnign simulator listeners")

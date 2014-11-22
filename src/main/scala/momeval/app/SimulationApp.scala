@@ -1,11 +1,12 @@
-package momeval.simulation
+package momeval.app
 
 import momeval.data.AsyncBufferingMongoDbEventRepo
 import momeval.service.{ Pauser, Kill }
-import momeval.publisher.JeroMqPublisher
 import grizzled.slf4j.Logging
 import momeval.implicits.Implicits._
 import momeval.publisher.PublisherFactory
+import momeval.simulation.Event
+import momeval.simulation.Simulator
 
 object SimulationApp extends App with Logging {
   info("Runnnign simulators with " + args(0) + " and " + args(1) + args(3))
