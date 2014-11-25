@@ -16,5 +16,7 @@ object JeroMQApp extends App with Logging {
 
 object Config {
   // Limit for bulk operations (http://docs.mongodb.org/manual/core/bulk-write-operations/)
-  val QSIZE = 10000
+  val MONGOQSIZE = 10000
+
+  val FILEQSIZE = 10000
 }

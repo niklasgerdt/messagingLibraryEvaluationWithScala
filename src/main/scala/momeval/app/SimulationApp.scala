@@ -1,6 +1,6 @@
 package momeval.app
 
-import momeval.data.AsyncBufferingMongoDbEventRepo
+import momeval.data.{AsyncBufferingFileStorer, AsyncBufferingMongoDbEventRepo}
 import momeval.service.{Pauser, Kill}
 import grizzled.slf4j.Logging
 import momeval.implicits.Implicits._
@@ -13,7 +13,9 @@ object SimulationApp extends Logging {
   def apply(eventlen: String, pauselen: String, publisher: String) = {
     def pub(address: String) = PublisherFactory.stringToPublisher(publisher, address)
     val pauser = Pauser.pauseFunction(pauselen)
-    def storer() = AsyncBufferingMongoDbEventRepo.storer("sentEvents")
+//    def storer() = AsyncBufferingMongoDbEventRepo.storer("sentEvents")
+    def storer() = AsyncBufferingFileStorer.storer("sentEvents")
+
     val kill = Kill.asSignalListener()
     def supplier(id: Int) = Event.supplier(id, eventlen, kill)
 

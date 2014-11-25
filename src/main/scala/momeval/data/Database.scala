@@ -18,3 +18,12 @@ trait MongoDB extends DataBase {
 
   def newCollection(c: String) = db(c)
 }
+
+trait Flatwile extends DataBase {
+
+  import java.io.File
+
+  val path = "./"
+
+  def newFile(name: String) = new File(path + name + System.nanoTime())
+}
