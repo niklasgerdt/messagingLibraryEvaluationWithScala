@@ -1,4 +1,4 @@
-package momeval.app
+package momeval.application
 
 import grizzled.slf4j.Logging
 import momeval.data.AsyncBufferingMongoDbEventRepo
@@ -10,7 +10,8 @@ object EventListenerApp extends Logging {
   def apply(subscriber: String) = {
     info("Runnign simulator listeners")
     def storer() = AsyncBufferingMongoDbEventRepo.storer("routedEvents")
-    def subs() = SubscriberFactory.stringToSubscriber(subscriber, "tcp://168.1.1.1:6001")
+    //    def subs() = SubscriberFactory.stringToSubscriber(subscriber, "tcp://168.1.1.1:6001")
+    def subs() = SubscriberFactory.stringToSubscriber(subscriber, "tcp://localhost:6001")
 
     List(
       new EventListener(1, storer(), subs()),

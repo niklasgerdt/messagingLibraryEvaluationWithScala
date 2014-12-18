@@ -30,7 +30,7 @@ fork in run := true
 
 javaOptions in run += "-Xmx3G"
 
-javaOptions in run += "-Xms3G"
+javaOptions in run += "-Xms512M"
 
 javaOptions in run += "-XX:+UseG1GC"
 

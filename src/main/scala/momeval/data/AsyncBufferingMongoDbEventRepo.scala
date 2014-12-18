@@ -3,17 +3,24 @@ package momeval.data
 import momeval.simulation.Event
 import grizzled.slf4j.Logging
 import momeval.service.Spawn
-import momeval.app.Config
+import momeval.application.Config
 import com.mongodb.casbah.commons.MongoDBObject
 import com.mongodb.DBObject
+import scala.collection.mutable._
 
 object AsyncBufferingMongoDbEventRepo extends AsyncEventRepo with MongoDB with Logging {
-  val QSIZE = Config.MONGOQSIZE
+  val QSIZE = Config.QSIZE
 
   override def storer(store: String): Event => Unit = {
-    val col = if (store.equals("sentEvents")) sentEventCollection() else if (store.equals("sentEvents")) routedEVentCollection() else newCollection(store)
+    val col =
+      if (store.equals("sentEvents"))
+        sentEventCollection()
+      else if (store.equals("routedEvents"))
+        routedEVentCollection()
+      else
+        newCollection(store)
     info("writing events to " + col.name)
-    var events: List[Event] = List.empty
+    val events: MutableList[Event] = MutableList.empty
 
     def map(e: Event): DBObject = {
       val mob = MongoDBObject.newBuilder
@@ -25,7 +32,7 @@ object AsyncBufferingMongoDbEventRepo extends AsyncEventRepo with MongoDB with L
       mob.result
     }
 
-    def flushInsert(es: List[Event]): () => Unit = {
+    def flushInsert(es: MutableList[Event]): () => Unit = {
       () => {
         val bulk = col.initializeUnorderedBulkOperation
         es.foreach(e => {
@@ -33,7 +40,7 @@ object AsyncBufferingMongoDbEventRepo extends AsyncEventRepo with MongoDB with L
           bulk.insert(mo)
         })
         val res = bulk.execute()
-        info("Inserted to " + store + "(" + es.head.src + "/" + es.head.des + "): " + res.getInsertedCount)
+        info("Inserted to " + store + ", count " + res.getInsertedCount)
       }
     }
 
@@ -43,11 +50,13 @@ object AsyncBufferingMongoDbEventRepo extends AsyncEventRepo with MongoDB with L
     }
 
     (e: Event) => {
-      events = events :+ e
+      events += e
       //      log(e)
       if (events.size == QSIZE) {
-        Spawn.spawn(flushInsert(events.toList))
-        events = List.empty
+        info("writing events to mongo " + events.size)
+        //Spawn.spawn(flushInsert(events))
+        flushInsert(events)()
+        events.clear()
       }
     }
   }

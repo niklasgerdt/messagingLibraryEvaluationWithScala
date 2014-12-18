@@ -2,12 +2,12 @@ package momeval.data
 
 import java.io.{FileWriter, BufferedWriter, File}
 import grizzled.slf4j.Logging
-import momeval.app.Config
+import momeval.application.Config
 import momeval.service.Spawn
 import momeval.simulation.Event
 
 object AsyncBufferingFileStorer extends AsyncEventRepo with Flatwile with Logging {
-  val QSIZE = Config.MONGOQSIZE
+  val QSIZE = Config.QSIZE
 
   override def storer(store: String): (Event) => Unit = {
     var events: List[Event] = List.empty

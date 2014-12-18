@@ -1,4 +1,4 @@
-package momeval.app
+package momeval.application
 
 import grizzled.slf4j.Logging
 import momeval.service.Spawn
@@ -16,7 +16,7 @@ object JeroMQApp extends App with Logging {
 
 object Config {
   // Limit for bulk operations (http://docs.mongodb.org/manual/core/bulk-write-operations/)
-  val MONGOQSIZE = 10000
+  val QSIZE = 1000000
 
   val FILEQSIZE = 10000
 }
